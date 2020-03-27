@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  LoverRow.swift
 //  LoverEdit
 //
 //  Created by SHIH-YING PAN on 2019/12/18.
@@ -8,14 +8,16 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct LoverRow: View {
+    var lover: Lover
+    
     var body: some View {
-        Text("Hello, World!")
+        Text(lover.name)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct LoverRow_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        LoverRow(lover: Lover(name: "penny", weight: 50, trueHeart: true))
     }
 }
