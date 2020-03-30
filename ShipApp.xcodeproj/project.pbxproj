@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3308E293243209CB0017A213 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3308E292243209CB0017A213 /* AppView.swift */; };
+		3308E29524320D220017A213 /* AutoControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3308E29424320D220017A213 /* AutoControl.swift */; };
 		3330DE6A242DE1BA00187B96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3330DE61242DE1B700187B96 /* SceneDelegate.swift */; };
 		3330DE72242DF41000187B96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3330DE71242DF41000187B96 /* AppDelegate.swift */; };
-		333CC2C22429BDBB00DD9734 /* ShipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333CC2C12429BDBB00DD9734 /* ShipView.swift */; };
+		333CC2C22429BDBB00DD9734 /* ManualControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333CC2C12429BDBB00DD9734 /* ManualControl.swift */; };
 		333CC2C42429BDC000DD9734 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 333CC2C32429BDC000DD9734 /* Assets.xcassets */; };
 		333CC2C72429BDC000DD9734 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 333CC2C62429BDC000DD9734 /* Preview Assets.xcassets */; };
 		333CC2CA2429BDC000DD9734 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 333CC2C82429BDC000DD9734 /* LaunchScreen.storyboard */; };
@@ -18,10 +20,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3308E292243209CB0017A213 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		3308E29424320D220017A213 /* AutoControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoControl.swift; sourceTree = "<group>"; };
 		3330DE61242DE1B700187B96 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3330DE71242DF41000187B96 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		333CC2BA2429BDBB00DD9734 /* ShipApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShipApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		333CC2C12429BDBB00DD9734 /* ShipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipView.swift; sourceTree = "<group>"; };
+		333CC2C12429BDBB00DD9734 /* ManualControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualControl.swift; sourceTree = "<group>"; };
 		333CC2C32429BDC000DD9734 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		333CC2C62429BDC000DD9734 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		333CC2C92429BDC000DD9734 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -67,7 +71,9 @@
 			children = (
 				3330DE71242DF41000187B96 /* AppDelegate.swift */,
 				3330DE61242DE1B700187B96 /* SceneDelegate.swift */,
-				333CC2C12429BDBB00DD9734 /* ShipView.swift */,
+				3308E292243209CB0017A213 /* AppView.swift */,
+				3308E29424320D220017A213 /* AutoControl.swift */,
+				333CC2C12429BDBB00DD9734 /* ManualControl.swift */,
 				333CC2C32429BDC000DD9734 /* Assets.xcassets */,
 				333CC2C82429BDC000DD9734 /* LaunchScreen.storyboard */,
 				333CC2CB2429BDC000DD9734 /* Info.plist */,
@@ -220,7 +226,9 @@
 			files = (
 				3330DE72242DF41000187B96 /* AppDelegate.swift in Sources */,
 				3330DE6A242DE1BA00187B96 /* SceneDelegate.swift in Sources */,
-				333CC2C22429BDBB00DD9734 /* ShipView.swift in Sources */,
+				3308E293243209CB0017A213 /* AppView.swift in Sources */,
+				3308E29524320D220017A213 /* AutoControl.swift in Sources */,
+				333CC2C22429BDBB00DD9734 /* ManualControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,8 +367,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ShipApp/Preview Content\"";
+				DEVELOPMENT_TEAM = CQCPP83MT6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ShipApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -379,8 +389,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ShipApp/Preview Content\"";
+				DEVELOPMENT_TEAM = CQCPP83MT6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ShipApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
