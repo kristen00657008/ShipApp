@@ -13,14 +13,11 @@ struct AppView: View {
         TabView {
             ManualControl()
                 .tabItem {
-                    Image("handle")
-                        .resizable()
-                        .frame(width: 5, height: 1)
                     Text("手動控制")
             }
-            AutoControl()
+            GPS()
                 .tabItem {
-                    Text("自動控制")
+                    Text("導航")
             }
         }
     }

@@ -16,6 +16,9 @@
 		333CC2C72429BDC000DD9734 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 333CC2C62429BDC000DD9734 /* Preview Assets.xcassets */; };
 		333CC2CA2429BDC000DD9734 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 333CC2C82429BDC000DD9734 /* LaunchScreen.storyboard */; };
 		333CC2D42429BE8E00DD9734 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 333CC2D32429BE8E00DD9734 /* GoogleService-Info.plist */; };
+		338215262433082C004E39ED /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338215252433082C004E39ED /* MapView.swift */; };
+		33821528243321A4004E39ED /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33821527243321A4004E39ED /* Data.swift */; };
+		3382152A24332D2C004E39ED /* GPS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3382152924332D2C004E39ED /* GPS.swift */; };
 		50ECE7C7CF15C92E4B75C8C3 /* Pods_ShipApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F387258397A6D3D14314287 /* Pods_ShipApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +34,9 @@
 		333CC2C92429BDC000DD9734 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		333CC2CB2429BDC000DD9734 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		333CC2D32429BE8E00DD9734 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		338215252433082C004E39ED /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		33821527243321A4004E39ED /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		3382152924332D2C004E39ED /* GPS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPS.swift; sourceTree = "<group>"; };
 		7F387258397A6D3D14314287 /* Pods_ShipApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShipApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86774223B56276966EB60CB5 /* Pods-ShipApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShipApp.release.xcconfig"; path = "Target Support Files/Pods-ShipApp/Pods-ShipApp.release.xcconfig"; sourceTree = "<group>"; };
 		C531D14A36C1FFF1917BD4F6 /* Pods-ShipApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShipApp.debug.xcconfig"; path = "Target Support Files/Pods-ShipApp/Pods-ShipApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -72,8 +78,11 @@
 				3330DE71242DF41000187B96 /* AppDelegate.swift */,
 				3330DE61242DE1B700187B96 /* SceneDelegate.swift */,
 				3308E292243209CB0017A213 /* AppView.swift */,
-				3308E29424320D220017A213 /* AutoControl.swift */,
 				333CC2C12429BDBB00DD9734 /* ManualControl.swift */,
+				3308E29424320D220017A213 /* AutoControl.swift */,
+				3382152924332D2C004E39ED /* GPS.swift */,
+				338215252433082C004E39ED /* MapView.swift */,
+				33821527243321A4004E39ED /* Data.swift */,
 				333CC2C32429BDC000DD9734 /* Assets.xcassets */,
 				333CC2C82429BDC000DD9734 /* LaunchScreen.storyboard */,
 				333CC2CB2429BDC000DD9734 /* Info.plist */,
@@ -224,10 +233,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33821528243321A4004E39ED /* Data.swift in Sources */,
 				3330DE72242DF41000187B96 /* AppDelegate.swift in Sources */,
+				338215262433082C004E39ED /* MapView.swift in Sources */,
 				3330DE6A242DE1BA00187B96 /* SceneDelegate.swift in Sources */,
 				3308E293243209CB0017A213 /* AppView.swift in Sources */,
 				3308E29524320D220017A213 /* AutoControl.swift in Sources */,
+				3382152A24332D2C004E39ED /* GPS.swift in Sources */,
 				333CC2C22429BDBB00DD9734 /* ManualControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -370,7 +382,7 @@
 				DEVELOPMENT_TEAM = CQCPP83MT6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ShipApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -392,7 +404,7 @@
 				DEVELOPMENT_TEAM = CQCPP83MT6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ShipApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

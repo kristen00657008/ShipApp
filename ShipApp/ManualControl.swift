@@ -113,7 +113,20 @@ struct ManualControl: View {
                         .frame(width: 100, height: 100)
                         .rotationEffect(Angle(degrees: 180))
                 }
-                Spacer()
+                
+                Button(action:{
+                    self.direction = "stop"
+                    self.speed = 0
+                    self.angle = 0
+                    self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
+                    print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
+                }) {
+                    Image("stop")
+                        .resizable()
+                        .renderingMode(.original)
+                        .frame(width: 100, height: 100)
+                }
+                
                 Button(action:{
                     self.direction = "forward"
                     self.angle = 90
