@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import MapKit
+import Firebase
 
 class Coordinator: NSObject, MKMapViewDelegate {
     var parent: MapView
@@ -27,7 +28,6 @@ class Coordinator: NSObject, MKMapViewDelegate {
         view.canShowCallout = true
         return view
     }
-    
 }
 
 extension MKPointAnnotation {
@@ -51,14 +51,19 @@ struct MapView: UIViewRepresentable {
     
     @Binding var centerCoordinate: CLLocationCoordinate2D
     var coordinate: CLLocationCoordinate2D
-    var annotation: MKPointAnnotation
+    var annotations: [MKPointAnnotation]
     @EnvironmentObject var locationData: LocationData
+    @State private var currentLatitude: Double = 0.0
+    @State private var currentLongitude: Double = 0.0
+    let db = Firestore.firestore()
+    var locationCoordinates: [CLLocationCoordinate2D]
     
     func makeUIView(context: UIViewRepresentableContext<MapView>) -> MKMapView {
+        
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
         
-        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000000, longitudinalMeters: 10000000)
         mapView.setRegion(region, animated: true)
         
         return mapView
@@ -66,17 +71,35 @@ struct MapView: UIViewRepresentable {
     
     func updateUIView(_ view: MKMapView, context: UIViewRepresentableContext<MapView>) {
         
-        if(locationData.locationChanged){
+        /*if(locationData.locationChanged){
             view.removeAnnotations(view.annotations)
-            annotation.title = "目的地"
-            let latitude = annotation.coordinate.latitude.floor(toDecimal: 4)
-            let longitude = annotation.coordinate.longitude.floor(toDecimal: 4)
-            annotation.subtitle = String(latitude) + "\"N , " + String(longitude) + "\"E"
-            view.addAnnotation(annotation)
+            annotations[0].title = "目的地"
+            let latitude = annotations[0].coordinate.latitude.floor(toDecimal: 4)
+            let longitude = annotations[0].coordinate.longitude.floor(toDecimal: 4)
+            annotations[0].subtitle = String(latitude) + "\"N , " + String(longitude) + "\"E"
+            view.addAnnotation(annotations[0])
             locationData.latitude = String(latitude)
             locationData.longitude = String(longitude)
         }
-        locationData.locationChanged = false
+        locationData.locationChanged = false*/
+        
+        
+        
+       /* (db as AnyObject) .collection("ship").document("gps").getDocument{ (document,
+        error)in
+            if document?.documentID == "CurrentLatitude"{
+                self.currentLatitude = document?.data()?["CurrentLatitude"] as! Double
+            }
+            else if document?.documentID == "CurrentLongitude"{
+                self.currentLongitude = document?.data()?["CurrentLongitude"] as! Double
+            }
+        }*/
+        
+        //view.removeAnnotations(view.annotations)
+        view.addAnnotations(annotations)
+        
+        print(currentLatitude)
+        print(currentLongitude)
     }
     
     func makeCoordinator() -> Coordinator {
@@ -86,6 +109,6 @@ struct MapView: UIViewRepresentable {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(centerCoordinate: .constant(MKPointAnnotation.example.coordinate), coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0), annotation: MKPointAnnotation.example).environmentObject(LocationData())
+        MapView(centerCoordinate: .constant(MKPointAnnotation.example.coordinate), coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0), annotations: [MKPointAnnotation](), locationCoordinates: [CLLocationCoordinate2D()]).environmentObject(LocationData())
     }
 }

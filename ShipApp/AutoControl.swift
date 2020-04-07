@@ -8,11 +8,12 @@
 
 import SwiftUI
 import  MapKit
+import Firebase
 
 struct AutoControl: View {
     
     @State private var centerCoordinate = CLLocationCoordinate2D()
-    @State private var location = MKPointAnnotation()
+    @State private var annotations = [MKPointAnnotation]()
     @State private var showAlert = false
     @EnvironmentObject var locationData: LocationData
     @Environment(\.presentationMode) var presentationMode
@@ -20,7 +21,7 @@ struct AutoControl: View {
     var body: some View {
         NavigationView {
             ZStack {
-                MapView(centerCoordinate: $centerCoordinate,coordinate: CLLocationCoordinate2D(latitude: 25.1514, longitude: 121.7785) ,annotation: location)
+                MapView(centerCoordinate: $centerCoordinate,coordinate: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), annotations:annotations, locationCoordinates: [CLLocationCoordinate2D]())
                     .edgesIgnoringSafeArea(.all)
                 Circle()
                     .fill(Color.blue)
@@ -30,6 +31,13 @@ struct AutoControl: View {
                     Spacer()
                     HStack {
                         Spacer()
+                        Button(action: {
+                            let annotation = MKPointAnnotation()
+                            annotation.coordinate = CLLocationCoordinate2D(latitude: 25.0, longitude: 121.0)
+                            self.annotations.append(annotation)
+                        }) {
+                            Text("Ship")
+                        }
                         Button(action: {
                             self.showAlert = true
                         }) {
@@ -47,7 +55,7 @@ struct AutoControl: View {
                             }), secondaryButton: .default(Text("是"), action: {
                                 let newLocation = MKPointAnnotation()
                                 newLocation.coordinate = self.centerCoordinate
-                                self.location = newLocation
+                                self.annotations.append(newLocation) 
                                 self.locationData.locationChanged = true
                             }))
                         }

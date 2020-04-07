@@ -7,12 +7,41 @@
 //
 
 import SwiftUI
-
+import MapKit
+import Firebase
 struct GPS: View {
     
     @State var showMap = false
-    
+    @State private var annotations = [MKPointAnnotation]()
     @EnvironmentObject var locationData: LocationData
+    @State private var currentLatitude: Double = 0
+    @State private var currentLongitude: Double = 0
+    
+    func readData(){
+        let db = Firestore.firestore()
+       
+        db.collection("ship").document("gps").getDocument { (document, error) in
+             print("1111111111")
+           if let document = document, document.exists {
+            
+            
+            print(document.data()?["CurrentLatitude"] as! String)
+            
+            //Double((document.data() as NSString).doubleValue)
+            self.currentLatitude = Double(document.data()?["CurrentLatitude"] as! String) as! Double
+            self.currentLongitude = Double(document.data()?["CurrentLongitude"] as! String) as! Double
+            print("CLT:\(self.currentLatitude)"  )
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: self.currentLatitude, longitude: self.currentLongitude)
+            self.annotations.append(annotation)
+            print(annotation.coordinate.latitude)
+           } else {
+              print("Document does not exist")
+           }
+        }
+        
+    }
+    
     var body: some View {
         
         VStack{
@@ -20,6 +49,13 @@ struct GPS: View {
                 Text("選擇目的地: ")
                 Button(action: {
                     self.showMap = true
+                    //let annotation = MKPointAnnotation()
+                    self.readData()
+                    
+                    
+                    //annotation.coordinate = CLLocationCoordinate2D(latitude: self.currentLatitude, longitude: self.currentLongitude)
+                    //self.annotations.append(annotation)
+                    
                 }) {
                     Image("map")
                         .renderingMode(.original)
@@ -27,7 +63,6 @@ struct GPS: View {
                         .frame(width: 50, height: 50)
                 }
                 .sheet(isPresented: $showMap){
-                    //Text("123")
                     AutoControl().environmentObject(self.locationData)
                 }
             }
