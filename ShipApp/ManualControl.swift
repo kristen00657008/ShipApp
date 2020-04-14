@@ -12,9 +12,9 @@ import Firebase
 
 struct ManualControl: View {
     
-    @State private var direction: String = "forward"
+    @State private var direction: String = "stop"
     @State private var speed: Int = 0
-    @State private var angle: Int = 0
+    @State private var angle: Int = 90
     let db: Any
     init(){
         FirebaseApp.configure()
@@ -62,7 +62,7 @@ struct ManualControl: View {
             HStack{
                 Button(action:{
                     self.direction = "forward"
-                    self.angle = 315
+                    self.angle = 80
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
                 }) {
@@ -75,7 +75,7 @@ struct ManualControl: View {
                 
                 Button(action:{
                     self.direction = "forward"
-                    self.angle = 0
+                    self.angle = 90
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
                 }) {
@@ -88,7 +88,7 @@ struct ManualControl: View {
                 
                 Button(action:{
                     self.direction = "forward"
-                    self.angle = 45
+                    self.angle = 115
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
                 }) {
@@ -103,7 +103,7 @@ struct ManualControl: View {
             HStack{
                 Button(action:{
                     self.direction = "forward"
-                    self.angle = 270
+                    self.angle = 70
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
                 }) {
@@ -117,7 +117,7 @@ struct ManualControl: View {
                 Button(action:{
                     self.direction = "stop"
                     self.speed = 0
-                    self.angle = 0
+                    self.angle = 90
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
                 }) {
@@ -129,7 +129,7 @@ struct ManualControl: View {
                 
                 Button(action:{
                     self.direction = "forward"
-                    self.angle = 90
+                    self.angle = 140
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
                 }) {
@@ -143,7 +143,7 @@ struct ManualControl: View {
             HStack{
                 Button(action:{
                     self.direction = "back"
-                    self.angle = 225
+                    self.angle = 115
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
@@ -157,7 +157,7 @@ struct ManualControl: View {
                 
                 Button(action:{
                     self.direction = "back"
-                    self.angle = 180
+                    self.angle = 90
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
                 }) {
@@ -170,7 +170,7 @@ struct ManualControl: View {
                 
                 Button(action:{
                     self.direction = "back"
-                    self.angle = 135
+                    self.angle = 80
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
                 }) {

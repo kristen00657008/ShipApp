@@ -7,9 +7,15 @@
 //
 
 import Foundation
+import MapKit
 
 class LocationData: ObservableObject {
-    @Published var locationChanged = false
-    @Published var latitude = ""
-    @Published var longitude = ""
+    @Published var DestinationChanged = false
+    @Published var DestinationLatitude = ""
+    @Published var DestinationLongitude = ""
+    @Published var CurrentLatitude = ""
+    @Published var CurrentLongitude = ""
+    @Published var CurrentAnnotation = MKPointAnnotation()
+    @Published var DestinationAnnotation = MKPointAnnotation()
+    @Published var Annotations = [MKPointAnnotation]()
 }

@@ -12,50 +12,35 @@ import Firebase
 struct GPS: View {
     
     @State var showMap = false
-    @State private var annotations = [MKPointAnnotation]()
     @EnvironmentObject var locationData: LocationData
-    @State private var currentLatitude: Double = 0
-    @State private var currentLongitude: Double = 0
     
     func readData(){
         let db = Firestore.firestore()
-       
-        db.collection("ship").document("gps").getDocument { (document, error) in
-             print("1111111111")
-           if let document = document, document.exists {
-            
-            
-            print(document.data()?["CurrentLatitude"] as! String)
-            
-            //Double((document.data() as NSString).doubleValue)
-            self.currentLatitude = Double(document.data()?["CurrentLatitude"] as! String) as! Double
-            self.currentLongitude = Double(document.data()?["CurrentLongitude"] as! String) as! Double
-            print("CLT:\(self.currentLatitude)"  )
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: self.currentLatitude, longitude: self.currentLongitude)
-            self.annotations.append(annotation)
-            print(annotation.coordinate.latitude)
-           } else {
-              print("Document does not exist")
-           }
-        }
         
+        db.collection("ship").document("gps").getDocument { (document, error) in
+            if let document = document, document.exists {
+                self.locationData.CurrentLatitude = document.data()?["CurrentLatitude"] as! String
+                self.locationData.CurrentLongitude = document.data()?["CurrentLongitude"] as! String
+                print("Current latitude:\(self.locationData.CurrentLatitude)"  )
+                print("Current longitude:\(self.locationData.CurrentLongitude)"  )
+            } else {
+                print("Document does not exist")
+            }
+            
+            let shipAnnotation = MKPointAnnotation()
+            shipAnnotation.coordinate = CLLocationCoordinate2D(latitude: Double((self.locationData.CurrentLatitude as NSString).doubleValue), longitude: Double((self.locationData.CurrentLongitude as NSString).doubleValue))
+            
+            self.locationData.CurrentAnnotation = shipAnnotation
+            self.locationData.Annotations.append(shipAnnotation)
+        }
     }
     
     var body: some View {
-        
         VStack{
             HStack{
                 Text("選擇目的地: ")
                 Button(action: {
                     self.showMap = true
-                    //let annotation = MKPointAnnotation()
-                    self.readData()
-                    
-                    
-                    //annotation.coordinate = CLLocationCoordinate2D(latitude: self.currentLatitude, longitude: self.currentLongitude)
-                    //self.annotations.append(annotation)
-                    
                 }) {
                     Image("map")
                         .renderingMode(.original)
@@ -68,13 +53,13 @@ struct GPS: View {
             }
             HStack{
                 Text("經度")
-                TextField("", text: $locationData.latitude )
+                TextField("", text: $locationData.DestinationLatitude )
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .disabled(true)
             }.frame(width: 300)
             HStack{
                 Text("緯度")
-                TextField("", text: $locationData.longitude)
+                TextField("", text: $locationData.DestinationLongitude)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.numberPad)
                     .disabled(true)
@@ -86,7 +71,25 @@ struct GPS: View {
                 Text("開始導航")
             }
             
+            HStack{
+                Text("船的經度")
+                TextField("", text: $locationData.CurrentLatitude )
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .disabled(true)
+            }.frame(width: 300)
+            HStack{
+                Text("船的緯度")
+                TextField("", text: $locationData.CurrentLongitude)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.numberPad)
+                    .disabled(true)
+            }.frame(width: 300)
             
+            Button(action: {
+                self.readData()
+            }) {
+                Text("重新整理")
+            }
         }
     }
 }
