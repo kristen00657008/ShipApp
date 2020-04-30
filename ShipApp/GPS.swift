@@ -13,7 +13,8 @@ struct GPS: View {
     
     @State var showMap = false
     @EnvironmentObject var locationData: LocationData
-    
+    @State private var showAlert: Bool = false
+    @State private var showMapAlert: Bool = false
     func readData(){
         let db = Firestore.firestore()
         
@@ -21,6 +22,7 @@ struct GPS: View {
             if let document = document, document.exists {
                 self.locationData.CurrentLatitude = document.data()?["CurrentLatitude"] as! String
                 self.locationData.CurrentLongitude = document.data()?["CurrentLongitude"] as! String
+                self.locationData.CurrentLocation = "（ \(self.locationData.CurrentLatitude) , \(self.locationData.CurrentLongitude) )"
                 print("Current latitude:\(self.locationData.CurrentLatitude)"  )
                 print("Current longitude:\(self.locationData.CurrentLongitude)"  )
             } else {
@@ -32,64 +34,75 @@ struct GPS: View {
             
             self.locationData.CurrentAnnotation = shipAnnotation
             self.locationData.Annotations.append(shipAnnotation)
+            self.locationData.DestinationAnnotation.append(shipAnnotation)
         }
     }
     
     var body: some View {
         VStack{
             HStack{
+                VStack(alignment: .leading){
+                    HStack{
+                        Text("你的位置")
+                        TextField("( , )" , text: $locationData.CurrentLocation)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .frame(width: 230)
+                            .disabled(true)
+                        Button(action: {
+                            self.readData()
+                            self.locationData.canOpenMap = true
+                        }) {
+                            Image("refresh")
+                                .renderingMode(.original)
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                        }
+                    }
+                    HStack{
+                        Text("目的地    ")
+                        TextField("( , )" , text: $locationData.DestinationLocation)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .frame(width: 230)
+                            .disabled(true)
+                    }
+                }
+                
+            }.frame(width: 350)
+            HStack(alignment: .center){
                 Text("選擇目的地: ")
                 Button(action: {
-                    self.showMap = true
+                    if(!self.locationData.canOpenMap){
+                        self.showMapAlert = true
+                    }
+                    else{
+                        self.showMap = true
+                    }
+                    
                 }) {
                     Image("map")
                         .renderingMode(.original)
                         .resizable()
                         .frame(width: 50, height: 50)
                 }
+                .alert(isPresented:self.$showMapAlert) {
+                    Alert(title: Text("請先重新整理你的位置"), dismissButton: .default(Text("OK")))
+                }
                 .sheet(isPresented: $showMap){
                     AutoControl().environmentObject(self.locationData)
                 }
-            }
-            HStack{
-                Text("經度")
-                TextField("", text: $locationData.DestinationLatitude )
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .disabled(true)
-            }.frame(width: 300)
-            HStack{
-                Text("緯度")
-                TextField("", text: $locationData.DestinationLongitude)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
-                    .disabled(true)
-            }.frame(width: 300)
-            
-            Button(action: {
                 
-            }) {
-                Text("開始導航")
+                Button(action: {
+                    if(!self.locationData.canStartNavigation){
+                        self.showAlert = true
+                    }
+                }) {
+                    Text("開始導航")
+                }
+                .alert(isPresented:self.$showAlert) {
+                    Alert(title: Text("請先選擇目的地"), dismissButton: .default(Text("OK")))
+                }
             }
-            
-            HStack{
-                Text("船的經度")
-                TextField("", text: $locationData.CurrentLatitude )
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .disabled(true)
-            }.frame(width: 300)
-            HStack{
-                Text("船的緯度")
-                TextField("", text: $locationData.CurrentLongitude)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
-                    .disabled(true)
-            }.frame(width: 300)
-            
-            Button(action: {
-                self.readData()
-            }) {
-                Text("重新整理")
-            }
+            Spacer()
         }
     }
 }

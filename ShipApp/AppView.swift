@@ -19,6 +19,10 @@ struct AppView: View {
                 .tabItem {
                     Text("導航")
             }
+            VideoView()
+                .tabItem {
+                    Text("即時影像")
+            }
         }
     }
 }

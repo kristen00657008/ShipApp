@@ -16,7 +16,7 @@ import UIKit
 struct MapView: UIViewRepresentable {
     @EnvironmentObject var locationData: LocationData
     var timer = Timer()
-    //@State private var annotations = [MKPointAnnotation]()
+    
     func readData(){
         let db = Firestore.firestore()
         
@@ -36,10 +36,14 @@ struct MapView: UIViewRepresentable {
             self.locationData.CurrentAnnotation = shipAnnotation
             self.locationData.Annotations[0] = self.locationData.CurrentAnnotation
         }
+        
     }
+    
+    
     
     func makeUIView(context: UIViewRepresentableContext<MapView>) -> MKMapView {
         let mapView = MKMapView()
+        
         let currentLocation = CLLocationCoordinate2D(latitude: Double((self.locationData.CurrentLatitude as NSString).doubleValue), longitude: Double((self.locationData.CurrentLongitude as NSString).doubleValue))
         let region = MKCoordinateRegion(center: currentLocation, latitudinalMeters: 10000, longitudinalMeters: 10000)
         mapView.setRegion(region, animated: true)
@@ -47,27 +51,27 @@ struct MapView: UIViewRepresentable {
         readData()
         mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotations(self.locationData.Annotations)
-        
         return mapView
     }
     
     func updateUIView(_ uiview: MKMapView, context: UIViewRepresentableContext<MapView>) {
-        
-        
-        Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { (_) in
-            self.readData()
-            uiview.delegate = context.coordinator
-            uiview.removeAnnotations(uiview.annotations)
-            uiview.addAnnotations(self.locationData.Annotations)
-            
+               
+        uiview.removeAnnotations(uiview.annotations)
+        uiview.addAnnotations(self.locationData.Annotations)
+        if(self.locationData.satilizeMode){
+            uiview.mapType = .satellite
         }
+        else{
+            uiview.mapType = .standard
+        }
+        
     }
     
     class MapViewCoordinator: NSObject, MKMapViewDelegate {
-        var mapViewController: MapView
+        var parent: MapView
         
         init(_ control: MapView) {
-            self.mapViewController = control
+            self.parent = control
         }
         
         func mapView(_ mapView: MKMapView, viewFor
@@ -81,13 +85,15 @@ struct MapView: UIViewRepresentable {
             annotationView.image = UIImage(named: "ship")
             return annotationView
         }
+        
+        func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+            parent.locationData.centerCoordinate = mapView.centerCoordinate
+        }
     }
     
     func makeCoordinator() -> MapViewCoordinator{
         MapViewCoordinator(self)
     }
-    
-    
 }
 
 struct MapView_Previews: PreviewProvider {
