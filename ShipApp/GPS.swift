@@ -39,71 +39,74 @@ struct GPS: View {
     }
     
     var body: some View {
-        VStack{
-            HStack{
-                VStack(alignment: .leading){
-                    HStack{
-                        Text("你的位置")
-                        TextField("( , )" , text: $locationData.CurrentLocation)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .frame(width: 230)
-                            .disabled(true)
-                        Button(action: {
-                            self.readData()
-                            self.locationData.canOpenMap = true
-                        }) {
-                            Image("refresh")
-                                .renderingMode(.original)
-                                .resizable()
-                                .frame(width: 30, height: 30)
+        NavigationView{
+            VStack{
+                HStack{
+                    VStack(alignment: .leading){
+                        HStack{
+                            Text("你的位置")
+                            TextField("( , )" , text: $locationData.CurrentLocation)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .frame(width: 230)
+                                .disabled(true)
+                            Button(action: {
+                                self.readData()
+                                self.locationData.canOpenMap = true
+                            }) {
+                                Image("refresh")
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                            }
+                        }
+                        HStack{
+                            Text("目的地    ")
+                            TextField("( , )" , text: $locationData.DestinationLocation)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .frame(width: 230)
+                                .disabled(true)
                         }
                     }
-                    HStack{
-                        Text("目的地    ")
-                        TextField("( , )" , text: $locationData.DestinationLocation)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .frame(width: 230)
-                            .disabled(true)
+                    
+                }.frame(width: 350)
+                HStack(alignment: .center){
+                    Text("選擇目的地: ")
+                    Button(action: {
+                        if(!self.locationData.canOpenMap){
+                            self.showMapAlert = true
+                        }
+                        else{
+                            self.showMap = true
+                        }
+                        
+                    }) {
+                        Image("map")
+                            .renderingMode(.original)
+                            .resizable()
+                            .frame(width: 50, height: 50)
                     }
-                }
-                
-            }.frame(width: 350)
-            HStack(alignment: .center){
-                Text("選擇目的地: ")
-                Button(action: {
-                    if(!self.locationData.canOpenMap){
-                        self.showMapAlert = true
+                    .alert(isPresented:self.$showMapAlert) {
+                        Alert(title: Text("請先重新整理你的位置"), dismissButton: .default(Text("OK")))
                     }
-                    else{
-                        self.showMap = true
+                    .sheet(isPresented: $showMap){
+                        AutoControl().environmentObject(self.locationData)
                     }
                     
-                }) {
-                    Image("map")
-                        .renderingMode(.original)
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                }
-                .alert(isPresented:self.$showMapAlert) {
-                    Alert(title: Text("請先重新整理你的位置"), dismissButton: .default(Text("OK")))
-                }
-                .sheet(isPresented: $showMap){
-                    AutoControl().environmentObject(self.locationData)
-                }
-                
-                Button(action: {
-                    if(!self.locationData.canStartNavigation){
-                        self.showAlert = true
+                    Button(action: {
+                        if(!self.locationData.canStartNavigation){
+                            self.showAlert = true
+                        }
+                    }) {
+                        Text("開始導航")
                     }
-                }) {
-                    Text("開始導航")
+                    .alert(isPresented:self.$showAlert) {
+                        Alert(title: Text("請先選擇目的地"), dismissButton: .default(Text("OK")))
+                    }
                 }
-                .alert(isPresented:self.$showAlert) {
-                    Alert(title: Text("請先選擇目的地"), dismissButton: .default(Text("OK")))
-                }
+                Spacer()
             }
-            Spacer()
         }
+        
     }
 }
 

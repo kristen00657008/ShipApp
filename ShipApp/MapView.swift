@@ -49,6 +49,8 @@ struct MapView: UIViewRepresentable {
         mapView.setRegion(region, animated: true)
         mapView.delegate = context.coordinator
         readData()
+        
+        
         mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotations(self.locationData.Annotations)
         return mapView
@@ -58,6 +60,7 @@ struct MapView: UIViewRepresentable {
                
         uiview.removeAnnotations(uiview.annotations)
         uiview.addAnnotations(self.locationData.Annotations)
+        uiview.addAnnotations(self.locationData.DestinationAnnotation)
         if(self.locationData.satilizeMode){
             uiview.mapType = .satellite
         }

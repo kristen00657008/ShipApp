@@ -62,7 +62,7 @@ struct ManualControl: View {
             HStack{
                 Button(action:{
                     self.direction = "forward"
-                    self.angle = 80
+                    self.angle = 115
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
                 }) {
@@ -88,7 +88,7 @@ struct ManualControl: View {
                 
                 Button(action:{
                     self.direction = "forward"
-                    self.angle = 115
+                    self.angle = 80
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
                 }) {
@@ -103,7 +103,7 @@ struct ManualControl: View {
             HStack{
                 Button(action:{
                     self.direction = "forward"
-                    self.angle = 70
+                    self.angle = 140
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
                 }) {
@@ -129,7 +129,7 @@ struct ManualControl: View {
                 
                 Button(action:{
                     self.direction = "forward"
-                    self.angle = 140
+                    self.angle = 70
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
                 }) {
@@ -143,7 +143,7 @@ struct ManualControl: View {
             HStack{
                 Button(action:{
                     self.direction = "back"
-                    self.angle = 115
+                    self.angle = 80
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
@@ -170,7 +170,7 @@ struct ManualControl: View {
                 
                 Button(action:{
                     self.direction = "back"
-                    self.angle = 80
+                    self.angle = 115
                     self.upDate(direction: self.direction , speed: self.speed , angle: self.angle)
                     print("direction: \(self.direction), speed: \(self.speed), angle: \(self.angle)")
                 }) {
